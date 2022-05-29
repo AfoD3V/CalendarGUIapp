@@ -1,18 +1,3 @@
-# wzorzec polecenie
-# kazdy wpis w menu jest osobnym obiektem
-#
-# 1. tekst programisty
-# 2. tekst ....
-# 3. ....
-#
-# Wybor: 1
-#
-# 1. tekst programisty
-# 2. tekst ....
-# 3. exit
-#
-# Wybor: 3
-
 from menu import Menu, MenuCommand, ExitCommand
 
 
@@ -24,10 +9,28 @@ class NewEvent(MenuCommand):
         return "New event"
 
 
+class ListCalendar(MenuCommand):
+    def execute(self):
+        pass
+
+    def description(self):
+        return "List calendar"
+
+
+class Export(MenuCommand):
+    def execute(self):
+        pass
+
+    def description(self):
+        return "Export calendar to iCalendar"
+
+
 def main():
     menu = Menu()
 
     menu.register(NewEvent())
+    menu.register(ListCalendar())
+    menu.register(Export())
     menu.register(ExitCommand(menu))
 
     menu.run()

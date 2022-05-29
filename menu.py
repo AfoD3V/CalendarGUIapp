@@ -1,20 +1,20 @@
 class Menu:
     def __init__(self):
-        self._commands = []     # lista komend
-        self._should_run = True     # czy ma działać
+        self._commands = []
+        self._should_run = True
 
     def run(self):
         while self._should_run:
-            print(" Menu\n======")
+            print("====== Menu ======")
 
-            for i, cmd in enumerate(self._commands):
+            for i, cmd in enumerate(self._commands, 1):
                 print("{}. {}".format(i, cmd.description()))
 
-            wybor = int(input("Wybor: "))
-            if wybor < 0 or wybor >= len(self._commands):
-                print("Nieznana opcja")
+            wybor = int(input("\nWybor: "))
+            if wybor <= 0 or wybor > len(self._commands):
+                print("\nNieznana opcja!!!\n")
             else:
-                self._commands[wybor].execute()
+                self._commands[wybor - 1].execute()
 
     def stop(self):
         self._should_run = False
