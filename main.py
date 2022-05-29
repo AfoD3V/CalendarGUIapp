@@ -1,9 +1,16 @@
 from menu import Menu, MenuCommand, ExitCommand
+from calendar import ListingStrategy
+
+calendar = ListingStrategy()
 
 
 class NewEvent(MenuCommand):
     def execute(self):
-        pass
+        title = input("Title: ")
+        date = input("Date (DD.MM.YYYY): ")
+        time = input("Time (HH:MM): ")
+
+        calendar.get_data(title, date, time)
 
     def description(self):
         return "New event"
@@ -11,7 +18,7 @@ class NewEvent(MenuCommand):
 
 class ListCalendar(MenuCommand):
     def execute(self):
-        pass
+        calendar.list_calendar()
 
     def description(self):
         return "List calendar"
