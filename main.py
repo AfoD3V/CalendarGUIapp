@@ -23,10 +23,11 @@ class ListCalendar(MenuCommand):
     def description(self):
         return "List calendar"
 
+#dodaj weryfikacje danych
 
 class Export(MenuCommand):
     def execute(self):
-        calendar.iCalendar_export()
+        calendar.icalendar_export()
 
     def description(self):
         return "Export calendar to iCalendar"
