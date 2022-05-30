@@ -26,7 +26,7 @@ class ListCalendar(MenuCommand):
 
 class Export(MenuCommand):
     def execute(self):
-        pass
+        calendar.iCalendar_export()
 
     def description(self):
         return "Export calendar to iCalendar"
