@@ -3,30 +3,32 @@ class ListingStrategy:
         self.title = []
         self.date = []
         self.time = []
+
     ### dodaj funkcje glowna wybierajaca strategie
-    def get_data(self, title, date, time):
+    def list_calendar(self, title, date, time):
         self.title.append(title)
         self.date.append(date)
         self.time.append(time)
 
     ### zamien na strategie
-    def list_calendar(self):
+    def standar_format(self):
         for i in range(len(self.title)):
-            print(f"Title: {self.title[i]}\nDate: {self.date[i]}, {self.time[i]}")
+            print(f"Title: {self.title[i]}")
+            print(f"Date: {self.date[i]}, {self.time[i]}")
 
     ### zamien na strategie
-    def icalendar_export(self):
-        print("""BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VTIMEZONE
-TZID:Europe/Warsaw
-X-LIC-LOCATION:Europe/Warsaw
-END:VTIMEZONE""")
+    def icalendar_format(self):
+        print("BEGIN:VCALENDAR")
+        print("VERSION:2.0")
+        print("BEGIN:VTIMEZONE")
+        print("TZID:Europe/Warsaw")
+        print("X-LIC-LOCATION:Europe/Warsaw")
+        print("END:VTIMEZONE")
 
         for i in range(len(self.title)):
-            print(f"""BEGIN:VEVENT
-DTSTART:{self.date[i]}
-DTEND:{self.date[i]}
-SUMMARY:{self.title[i]}
-END:VEVENT""")
+            print("BEGIN:VEVENT")
+            print(f"DTSTART:{self.date[i]}")
+            print(f"DTEND:{self.date[i]}")
+            print(f"SUMMARY:{self.title[i]}")
+            print("END:VEVENT")
         print("END:VCALENDAR")
