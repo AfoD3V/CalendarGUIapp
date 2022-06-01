@@ -8,7 +8,9 @@ def generate_id(length=8):
     # helper function for generating an id
     return ''.join(random.choices(string.ascii_uppercase, k=length))
 
-
+'''
+Klsa do której przekazywany jest ticket
+'''
 class SupportTicket:
 
     def __init__(self, customer, issue):
@@ -36,7 +38,9 @@ def randomOrdering(list: List[SupportTicket]) -> List[SupportTicket]:
 def blackHoleOrdering(list: List[SupportTicket]) -> List[SupportTicket]:
     return []
 
-
+'''
+Klasa wejściowa
+'''
 class CustomerSupport:
 
     def __init__(self):
@@ -75,4 +79,4 @@ app.create_ticket("Linus Sebastian", "I can't upload any videos, please help.")
 app.create_ticket("Arjan Egges", "VSCode doesn't automatically solve my bugs.")
 
 # process the tickets
-app.process_tickets(blackHoleOrdering)
+app.process_tickets(randomOrdering())
