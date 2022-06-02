@@ -5,28 +5,46 @@ class ListingStrategy:
     def register_event(self, event: tuple):
         self.events.append(event)
 
-    def print_events(self):
-        pass
+    def print_event(self, strategy: str):
+
+        if strategy == "standard":
+            prepared_event_list = _standard_format_strategy(self.events)
+            for event in prepared_event_list:
+                print(event)
+        elif strategy == "icalendar":
+            prepared_event_list = _icalendar_format_srategy(self.events)
+            for event in prepared_event_list:
+                print(event)
 
 
-def standar_format_strategy():
-    for i in range(len(self.title)):
-        print(f"Title: {self.title[i]}")
-        print(f"Date: {self.date[i]}, {self.time[i]}")
+def _standard_format_strategy(registered_event_list: list) -> list:
+    str_list = []
+    for i in range(len(registered_event_list)):
+        str_list.append(
+            f"Title: {registered_event_list[i][0]}\nDate: {registered_event_list[i][1]}, {registered_event_list[i][2]}")
+    return str_list
 
 
-# def icalendar_format(self):
-#     print("BEGIN:VCALENDAR")
-#     print("VERSION:2.0")
-#     print("BEGIN:VTIMEZONE")
-#     print("TZID:Europe/Warsaw")
-#     print("X-LIC-LOCATION:Europe/Warsaw")
-#     print("END:VTIMEZONE")
-#
-#     for i in range(len(self.title)):
-#         print("BEGIN:VEVENT")
-#         print(f"DTSTART:{self.date[i]}")
-#         print(f"DTEND:{self.date[i]}")
-#         print(f"SUMMARY:{self.title[i]}")
-#         print("END:VEVENT")
-#     print("END:VCALENDAR")
+def _icalendar_format_srategy(registered_event_list: list) -> list:
+    str_list = ['''
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:Europe/Warsaw
+X-LIC-LOCATION:Europe/Warsaw
+END:VTIMEZONE
+    '''.rstrip()]
+
+    for i in range(len(registered_event_list)):
+        middle_part = f'''
+BEGIN:VEVENT
+DTSTART:{registered_event_list[i][1]}
+DTEND:{registered_event_list[i][2]}
+SUMMARY:{registered_event_list[i][0]}
+END:VEVENT
+        '''.strip()
+        str_list.append(middle_part)
+
+    str_list.append("END:VCALENDAR\n")
+
+    return str_list

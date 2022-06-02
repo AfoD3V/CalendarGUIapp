@@ -1,8 +1,9 @@
-import calendar
 from menu import Menu, MenuCommand, ExitCommand
 from calendar import ListingStrategy
+import re
 
 calendar = ListingStrategy()
+
 
 class NewEvent(MenuCommand):
     def execute(self):
@@ -12,13 +13,14 @@ class NewEvent(MenuCommand):
         new_event = (title, date, time)
         calendar.register_event(new_event)
 
+
     def description(self):
         return "New event"
 
 
 class ListCalendar(MenuCommand):
     def execute(self):
-        calendar.print_event()
+        calendar.print_event("standard")
 
     def description(self):
         return "List calendar"
@@ -26,7 +28,7 @@ class ListCalendar(MenuCommand):
 
 class Export(MenuCommand):
     def execute(self):
-        pass
+        calendar.print_event("icalendar")
 
     def description(self):
         return "Export calendar to iCalendar"
