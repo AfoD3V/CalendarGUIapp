@@ -4,34 +4,37 @@ class Menu:
         self._should_run = True
 
     def run(self):
+        """Function for running menu"""
         while self._should_run:
             print("====== Menu ======")
 
             for i, cmd in enumerate(self._commands, 1):
                 print("{}. {}".format(i, cmd.description()))
 
-            wybor = int(input("\nWybor: "))
-            if wybor <= 0 or wybor > len(self._commands):
-                print("\nNieznana opcja!!!\n")
+            pick_option = int(input("\nSelect option [1-4]: "))
+            if pick_option <= 0 or pick_option > len(self._commands):
+                print("\nWrong option!\n")
             else:
-                self._commands[wybor - 1].execute()
+                self._commands[pick_option - 1].execute()
 
     def stop(self):
+        """Aborting menu"""
         self._should_run = False
 
     def register(self, command):
+        """Function for registering menu command"""
         self._commands.append(command)
 
 
-class MenuCommand:
-
+class MenuCommand:  # Class which is raising an error when one of methods in not implemented
     def execute(self):
-        raise NotImplementedError("you should implement this method in subclass")
+        raise NotImplementedError("You should implement this method in subclass")
 
     def description(self):
-        raise NotImplementedError("you should implement this method in subclass")
+        raise NotImplementedError("You should implement this method in subclass")
 
 
+# Menu button - aborting menu running
 class ExitCommand(MenuCommand):
     def __init__(self, menu):
         self._menu = menu
