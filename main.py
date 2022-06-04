@@ -7,6 +7,8 @@ calendar = ListingStrategy()
 
 
 class NewEvent(MenuCommand):
+    """[New event] - menu button"""
+
     def execute(self):
         status = False
         while not status:
@@ -16,6 +18,7 @@ class NewEvent(MenuCommand):
             if len(title) != len(title_check):
                 print("\nInvalid input\n")
                 return
+
             # checking for date if format and real date is valid
             date = input("Date (DD.MM.YYYY): ")
             date_check = re.findall("[0-9.]", date)
@@ -31,6 +34,7 @@ class NewEvent(MenuCommand):
             except ValueError:
                 print("\nInvalid input\n")
                 return
+
             # Checking time for correct format and correct time
             time = input("Time (HH:MM): ")
             time_check = re.findall("[0-9:]", time)
@@ -56,6 +60,7 @@ class NewEvent(MenuCommand):
 
 
 class ListCalendar(MenuCommand):
+    """[List calendar] - menu button"""
     def execute(self):
         calendar.print_event("standard")
 
@@ -64,6 +69,7 @@ class ListCalendar(MenuCommand):
 
 
 class Export(MenuCommand):
+    """[Export] - menu button"""
     def execute(self):
         calendar.print_event("icalendar")
 

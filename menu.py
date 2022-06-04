@@ -26,11 +26,12 @@ class Menu:
         self._commands.append(command)
 
 
-class MenuCommand:  # Class which is raising an error when one of methods in not implemented
-    def execute(self):
+class MenuCommand:
+    """Class which is creating menu button, not implementing both of methods will result in rising error"""
+    def execute(self):  # Inside block code is going to be executed on "push"
         raise NotImplementedError("You should implement this method in subclass")
 
-    def description(self):
+    def description(self):  # Description of button which you can see in 'live' menu
         raise NotImplementedError("You should implement this method in subclass")
 
 
