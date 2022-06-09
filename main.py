@@ -15,9 +15,9 @@ class MainApplication(tk.Frame):
         self.parent = parent
 
         # Labels for windows description
-        self.label_new_event = tk.Label(root, text="Title: ", font="none 9 bold")
-        self.label_date = tk.Label(root, text="Date (DD.MM.YYYY): ", font="none 9 bold")
-        self.label_time = tk.Label(root, text="Time (HH:MM): ", font="none 9 bold")
+        self.label_new_event = tk.Label(root, text="Title: ", font="none 10")
+        self.label_date = tk.Label(root, text="Date (DD.MM.YYYY): ", font="none 9")
+        self.label_time = tk.Label(root, text="Time (HH:MM): ", font="none 9")
         self.label_new_event.grid(row=0, column=0)
         self.label_date.grid(row=1, column=0)
         self.label_time.grid(row=2, column=0)
@@ -61,12 +61,14 @@ class MainApplication(tk.Frame):
             pass
         else:
             registration_status = "Invalid input"
+
         # Date Check
         date_for_check = self.date.get()
         if DataVerification.date_check(date_for_check):
             pass
         else:
             registration_status = "Invalid input"
+
         # Time check
         time_for_check = self.time.get()
         if DataVerification.time_check(time_for_check):
@@ -74,6 +76,7 @@ class MainApplication(tk.Frame):
         else:
             registration_status = "Invalid input"
 
+        # Final reg statement
         self.output.insert(tk.END, registration_status)
         new_event = (title_for_check, date_for_check, time_for_check)
         if registration_status == "Success!!":
@@ -86,13 +89,14 @@ class MainApplication(tk.Frame):
         self.output.insert(tk.END, events)
 
     def export_events(self):
-        """Button method for output in iCalendar format"""
+        """Button method for output and export file in iCalendar format"""
         events = cal.print_event("icalendar", "gui")
         with open('icalendar.txt', 'w') as f:
             f.write(events.strip())
         self.output.delete(0.0, tk.END)
         self.output.insert(tk.END, events.lstrip())
         self.output.insert(tk.END, "\nFile has been created...")
+
 
 class NewEvent(MenuCommand):
     """[New event] - menu button"""
@@ -106,6 +110,7 @@ class NewEvent(MenuCommand):
         else:
             print("\nInvalid input\n")
             return
+
         # Date check
         date = input("Date (DD.MM.YYYY): ")
         if DataVerification.date_check(date):
@@ -113,6 +118,7 @@ class NewEvent(MenuCommand):
         else:
             print("\nInvalid input\n")
             return
+
         # Time check
         time = input("Time (HH:MM): ")
         if DataVerification.time_check(time):
@@ -132,6 +138,7 @@ class ListCalendar(MenuCommand):
     """[List calendar] - menu button"""
 
     def execute(self):
+        # Standard listing method for in list registered events
         print("\n" + cal.print_event("standard"))
 
     def description(self):
@@ -142,6 +149,7 @@ class Export(MenuCommand):
     """[Export] - menu button"""
 
     def execute(self):
+        """Method for output and export file in iCalendar format"""
         export = cal.print_event("icalendar")
         print("\n" + export)
         with open('icalendar.txt', 'w') as f:
