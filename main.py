@@ -91,7 +91,7 @@ class MainApplication(tk.Frame):
     def export_events(self):
         """Button method for output and export file in iCalendar format"""
         events = cal.print_event("icalendar", "gui")
-        with open('icalendar.txt', 'w') as f:
+        with open('icalendar.ics', 'w') as f:
             f.write(events.strip())
         self.output.delete(0.0, tk.END)
         self.output.insert(tk.END, events.lstrip())
@@ -152,7 +152,7 @@ class Export(MenuCommand):
         """Method for output and export file in iCalendar format"""
         export = cal.print_event("icalendar")
         print("\n" + export)
-        with open('icalendar.txt', 'w') as f:
+        with open('icalendar.ics', 'w') as f:
             f.write(export.strip())
 
     def description(self):
