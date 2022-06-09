@@ -16,7 +16,7 @@ class ListingStrategy:
             prepared_event_list = _standard_format_strategy(self.events)
             for event in prepared_event_list:
                 if mode == "con":
-                    print(event)
+                    string += event + "\n"
                 elif mode == "gui":
                     string += event + "\n"
             return string
@@ -24,9 +24,9 @@ class ListingStrategy:
             prepared_event_list = _icalendar_format_srategy(self.events)
             for event in prepared_event_list:
                 if mode == "con":
-                    print(event)
+                    string += event + "\n"
                 elif mode == "gui":
-                    string += event
+                    string += event + "\n"
             return string
 
 

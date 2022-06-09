@@ -4,15 +4,12 @@ import re
 import datetime
 import tkinter as tk
 
-calendar = ListingStrategy()
+cal = ListingStrategy()
 
-
-# To do zmodyfikowac klase wyzej moze byc niepotrzebna
-# dodac komentarze
-# ustawic wartosci typowania oraz return dla funkcji
 
 class MainApplication(tk.Frame):
     """GUI class"""
+
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
@@ -80,47 +77,52 @@ class MainApplication(tk.Frame):
         self.output.insert(tk.END, registration_status)
         new_event = (title_for_check, date_for_check, time_for_check)
         if registration_status == "Success!!":
-            calendar.register_event(new_event)  # registering event
+            cal.register_event(new_event)  # registering event
 
     def registered_events_list(self):
         """Button method for output in standard format"""
-        events = calendar.print_event("standard", "gui")
+        events = cal.print_event("standard", "gui")
         self.output.delete(0.0, tk.END)
         self.output.insert(tk.END, events)
 
     def export_events(self):
         """Button method for output in iCalendar format"""
-        events = calendar.print_event("icalendar", "gui")
+        events = cal.print_event("icalendar", "gui")
+        with open('icalendar.txt', 'w') as f:
+            f.write(events.strip())
         self.output.delete(0.0, tk.END)
         self.output.insert(tk.END, events.lstrip())
-
+        self.output.insert(tk.END, "\nFile has been created...")
 
 class NewEvent(MenuCommand):
     """[New event] - menu button"""
 
     def execute(self):
-        # Registering new event for in console use
+        """Registering new event for in console use"""
+        # Title check
         title = input("Title: ")
         if DataVerification.title_check(title):
             pass
         else:
             print("\nInvalid input\n")
             return
+        # Date check
         date = input("Date (DD.MM.YYYY): ")
         if DataVerification.date_check(date):
             pass
         else:
             print("\nInvalid input\n")
             return
+        # Time check
         time = input("Time (HH:MM): ")
-        if DataVerification.date_check(date):
+        if DataVerification.time_check(time):
             pass
         else:
             print("\nInvalid input\n")
             return
 
         new_event = (title, date, time)
-        calendar.register_event(new_event)
+        cal.register_event(new_event)
 
     def description(self):
         return "New event"
@@ -130,7 +132,7 @@ class ListCalendar(MenuCommand):
     """[List calendar] - menu button"""
 
     def execute(self):
-        calendar.print_event("standard")
+        print("\n" + cal.print_event("standard"))
 
     def description(self):
         return "List calendar"
@@ -140,7 +142,10 @@ class Export(MenuCommand):
     """[Export] - menu button"""
 
     def execute(self):
-        calendar.print_event("icalendar")
+        export = cal.print_event("icalendar")
+        print("\n" + export)
+        with open('icalendar.txt', 'w') as f:
+            f.write(export.strip())
 
     def description(self):
         return "Export calendar to iCalendar"
