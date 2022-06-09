@@ -9,16 +9,25 @@ class ListingStrategy:
         """Function for registering new event on the list"""
         return self.events.append(event)
 
-    def print_event(self, strategy: str):
+    def print_event(self, strategy: str, mode="con"):
         """General function for printing registered event in a format defined by strategy"""
+        string = ""
         if strategy == "standard":
             prepared_event_list = _standard_format_strategy(self.events)
             for event in prepared_event_list:
-                print(event)
+                if mode == "con":
+                    print(event)
+                elif mode == "gui":
+                    string += event + "\n"
+            return string
         elif strategy == "icalendar":
             prepared_event_list = _icalendar_format_srategy(self.events)
             for event in prepared_event_list:
-                print(event)
+                if mode == "con":
+                    print(event)
+                elif mode == "gui":
+                    string += event
+            return string
 
 
 def _standard_format_strategy(registered_event_list: list) -> list:
