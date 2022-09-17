@@ -1,10 +1,12 @@
 class Menu:
+    """A class used for representing menu object"""
+
     def __init__(self):
         self._commands = []
         self._should_run = True
 
     def run(self):
-        """Function for running menu"""
+        """Running menu method"""
         while self._should_run:
             print("====== Menu ======")
 
@@ -18,16 +20,17 @@ class Menu:
                 self._commands[pick_option - 1].execute()
 
     def stop(self):
-        """Aborting menu"""
+        """Simple aborting menu method"""
         self._should_run = False
 
     def register(self, command):
-        """Function for registering menu command"""
+        """Method for registering new object"""
         self._commands.append(command)
 
 
 class MenuCommand:
-    """Class which is creating menu button, not implementing both of methods will result in rising error"""
+    """Class representing in menu command"""
+
     def execute(self):  # Inside block code is going to be executed on "push"
         raise NotImplementedError("You should implement this method in subclass")
 
@@ -37,6 +40,8 @@ class MenuCommand:
 
 # Menu button - aborting menu running
 class ExitCommand(MenuCommand):
+    """Exit - menu command"""
+
     def __init__(self, menu):
         self._menu = menu
 
