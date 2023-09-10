@@ -61,4 +61,4 @@ jobs:
     - name: Login into DockerHub
       run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u ${{secrets.DOCKER_USER}} --password-stdin
     - name: Push into DockerHub
-      run: docker push afod3v/calendar-app
+      run: docker push afod3v/calendar-app:$(date +%s)
