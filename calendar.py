@@ -55,12 +55,14 @@ class iCalendarStrat(Strategy):
 
         # Loop which is iterating through registered events
         for i in range(len(registered_event_list)):
-            day, month, year = registered_event_list[i][1].split('.')
-            hour, minute = registered_event_list[i][2].split(':')
-            middle_part = f"BEGIN:VEVENT\n" \
-                          f"DTSTART:{year + month + day + 'T' + hour + minute + '00'}\n" \
-                          f"DTEND:{year + month + day + 'T' + hour + minute + '00'}\n" \
-                          f"SUMMARY:{registered_event_list[i][0]}\nEND:VEVENT".strip()
+            day, month, year = registered_event_list[i][1].split(".")
+            hour, minute = registered_event_list[i][2].split(":")
+            middle_part = (
+                f"BEGIN:VEVENT\n"
+                f"DTSTART:{year + month + day + 'T' + hour + minute + '00'}\n"
+                f"DTEND:{year + month + day + 'T' + hour + minute + '00'}\n"
+                f"SUMMARY:{registered_event_list[i][0]}\nEND:VEVENT".strip()
+            )
             str_list.append(middle_part)
 
         # Ending string, like start same for every case
@@ -77,29 +79,35 @@ class StandardStrat(Strategy):
         str_list = []
         for i in range(len(registered_event_list)):
             str_list.append(
-                f"Title: {registered_event_list[i][0]}\nDate: {registered_event_list[i][1]}, {registered_event_list[i][2]}")
+                f"Title: {registered_event_list[i][0]}\nDate: {registered_event_list[i][1]}, {registered_event_list[i][2]}"
+            )
         return str_list
 
 
 class TestCalendarMethods(unittest.TestCase):
-
     def test_standard_format(self):
         # case_1
         cal = StandardStrat()
         self.assertEqual(cal.format_strategy([]), [], "standard_format case_1 failed")
         # case_2
-        self.assertEqual(cal.format_strategy([('sample_title', '12.12.2020', '12:45')]),
-                         ["Title: sample_title\nDate: 12.12.2020, 12:45"], "standard_format case_2 failed")
+        self.assertEqual(
+            cal.format_strategy([("sample_title", "12.12.2020", "12:45")]),
+            ["Title: sample_title\nDate: 12.12.2020, 12:45"],
+            "standard_format case_2 failed",
+        )
 
     def test_icalendar_format(self):
         # case_1
         cal = iCalendarStrat()
         self.assertEqual(cal.format_strategy([]), [], "icalendar_format case_1 failed")
         test_list = [
-            '\nBEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VTIMEZONE\nTZID:Europe/Warsaw\nX-LIC-LOCATION:Europe/Warsaw\nEND:VTIMEZONE',
-            'BEGIN:VEVENT\nDTSTART:20201212T124500\nDTEND:20201212T124500\nSUMMARY:sample_title\nEND:VEVENT',
-            'END:VCALENDAR\n'
+            "\nBEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VTIMEZONE\nTZID:Europe/Warsaw\nX-LIC-LOCATION:Europe/Warsaw\nEND:VTIMEZONE",
+            "BEGIN:VEVENT\nDTSTART:20201212T124500\nDTEND:20201212T124500\nSUMMARY:sample_title\nEND:VEVENT",
+            "END:VCALENDAR\n",
         ]
         # case_2
-        self.assertEqual(cal.format_strategy([('sample_title', '12.12.2020', '12:45')]), test_list,
-                         "icalendar_format case_2 failed")
+        self.assertEqual(
+            cal.format_strategy([("sample_title", "12.12.2020", "12:45")]),
+            test_list,
+            "icalendar_format case_2 failed",
+        )
