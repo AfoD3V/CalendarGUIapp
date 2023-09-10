@@ -1,5 +1,5 @@
 from menu import Menu, MenuCommand, ExitCommand
-from calendar import ListingStrategy
+from my_calendar import ListingStrategy
 import re
 import datetime
 import tkinter as tk
@@ -31,18 +31,35 @@ class MainApplication(tk.Frame):
         self.time.grid(row=2, column=1)
 
         # Buttons
-        self.button_new_event = tk.Button(root, text="Register event", width=15, height=1, command=self.reg)
-        self.button_list_calendar = tk.Button(root, text="List of events", width=15, height=1,
-                                              command=self.registered_events_list)
-        self.button_export = tk.Button(root, text="Export to iCalendar", width=15, height=1, command=self.export_events)
-        self.button_exit = tk.Button(root, text="Exit", width=15, height=1, command=self.close)
+        self.button_new_event = tk.Button(
+            root, text="Register event", width=15, height=1, command=self.reg
+        )
+        self.button_list_calendar = tk.Button(
+            root,
+            text="List of events",
+            width=15,
+            height=1,
+            command=self.registered_events_list,
+        )
+        self.button_export = tk.Button(
+            root,
+            text="Export to iCalendar",
+            width=15,
+            height=1,
+            command=self.export_events,
+        )
+        self.button_exit = tk.Button(
+            root, text="Exit", width=15, height=1, command=self.close
+        )
         self.button_new_event.grid(row=0, column=2, sticky=tk.NSEW)
         self.button_list_calendar.grid(row=0, column=3, sticky=tk.NSEW)
         self.button_export.grid(row=1, column=2, columnspan=2, sticky=tk.NSEW)
         self.button_exit.grid(row=2, column=2, columnspan=2, sticky=tk.NSEW)
 
         # Output window
-        self.output = tk.Text(root, width=75, height=15, wrap=tk.WORD, borderwidth=5, background="white")
+        self.output = tk.Text(
+            root, width=75, height=15, wrap=tk.WORD, borderwidth=5, background="white"
+        )
         self.output.grid(row=3, column=0, columnspan=4, sticky=tk.NSEW)
 
     @staticmethod
@@ -91,7 +108,7 @@ class MainApplication(tk.Frame):
     def export_events(self):
         """Button method for output and export file in iCalendar format"""
         events = cal.print_event("icalendar", "gui")
-        with open('icalendar.ics', 'w') as f:
+        with open("icalendar.ics", "w") as f:
             f.write(events.strip())
         self.output.delete(0.0, tk.END)
         self.output.insert(tk.END, events.lstrip())
@@ -152,7 +169,7 @@ class Export(MenuCommand):
         """Method for output and export file in iCalendar format"""
         export = cal.print_event("icalendar")
         print("\n" + export)
-        with open('icalendar.ics', 'w') as f:
+        with open("icalendar.ics", "w") as f:
             f.write(export.strip())
 
     def description(self):
@@ -178,7 +195,7 @@ class DataVerification:
         elif len(date) != len(date_check):
             return False
         try:
-            day, month, year = date.split('.')
+            day, month, year = date.split(".")
             datetime.datetime(int(year), int(month), int(day))
             return True
         except ValueError:
@@ -193,7 +210,7 @@ class DataVerification:
         elif len(time) != len(time_check):
             return False
         try:
-            hour, minute = time.split(':')
+            hour, minute = time.split(":")
             datetime.time(int(hour), int(minute))
             return True
         except ValueError:
@@ -220,7 +237,7 @@ if __name__ == "__main__":
     elif mode == "gui":
         root = tk.Tk()
         root.title("Calendar by Roman Afonin")
-        root.attributes('-topmost', True)  # making window to pop on top of tabs
+        root.attributes("-topmost", True)  # making window to pop on top of tabs
         root.update()
         MainApplication(root).grid()
         root.mainloop()
