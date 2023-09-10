@@ -3,6 +3,7 @@ from my_calendar import ListingStrategy
 import re
 import datetime
 import tkinter as tk
+import sys
 
 cal = ListingStrategy()
 
@@ -218,14 +219,17 @@ class DataVerification:
 
 
 def main():
-    menu = Menu()
-
-    menu.register(NewEvent())
-    menu.register(ListCalendar())
-    menu.register(Export())
-    menu.register(ExitCommand(menu))
-
-    menu.run()
+    if len(sys.argv) > 1:
+        # If there are command-line arguments, assume we're in non-interactive mode
+        if sys.argv[1] == "con":
+            main_console()
+        elif sys.argv[1] == "gui":
+            main_gui()
+        else:
+            print("Not valid option")
+    else:
+        print('For console mode type "con".')
+        print('For GUI mode type "gui"')
 
 
 if __name__ == "__main__":
