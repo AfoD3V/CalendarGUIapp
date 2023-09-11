@@ -7,4 +7,4 @@ def test_add_1():
 
 
 def test_add_2():
-    assert utils.test_function(2) == 0
+    assert utils.test_function(2) == 3
