@@ -1,7 +1,5 @@
-# projekt_kalendarz
-For school calendar project
-
-Small gui / console project which is desgined for creating event file in iCalendar format which may be later imported to your calendar.
+# CalendarGUIapp
+School project for creating calendar events in ics format.
 
 Usage:
 1. Run main file
